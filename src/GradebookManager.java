@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GradebookMerger 
+public class GradebookManager 
 {
     private ArrayList<StudentRecord> students = new ArrayList<>();
 
