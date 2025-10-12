@@ -9,5 +9,13 @@ public class PA2Main
             return;
         }
         System.out.println("PA2Main start.");
+
+        GradebookMerger merger = new GradebookMerger();
+
+        for (String filename : args)
+        {
+            System.out.println("Reading file: " + filename);
+            merger.addFile(filename);
+        }
     }
 }
