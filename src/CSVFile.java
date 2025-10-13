@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class CSVFile 
 {
@@ -23,5 +24,67 @@ public class CSVFile
         writer.close();
 
         System.out.println("Details written to " + filename);
+    }
+
+    public static void writeSummary(String filename, ArrayList<StudentRecord> students) throws IOException
+    {
+        FileWriter writer = new FileWriter(filename);
+
+        Hashtable<String, Boolean> categoryTable = new Hashtable<>();
+
+        for (StudentRecord s : students)
+        {
+            for (String category : s.getCategories())
+            {
+                categoryTable.put(category, true);
+            }
+        }
+
+        ArrayList<String> categories = new ArrayList<>(categoryTable.keySet());
+
+        writer.write("ID, Name, Overall");
+
+        for (String category : categories)
+        {
+            writer.write("," + category);
+        }
+
+        for (StudentRecord s : students)
+        {
+            writer.write(s.getId() + "," + s.getName());
+
+            ArrayList<Double> scores = s.getScores();
+
+            double sum = 0;
+
+            for (double score : scores)
+            {
+                sum += score;
+            }
+
+            double overall = scores.isEmpty() ? 0 : sum / scores.size();
+            writer.write("," + overall);
+
+            ArrayList<String> studentCategories = s.getCategories();
+            ArrayList<Double> studentScores = s.getScores();
+
+            for (String category : categories)
+            {
+                double score = 0;
+
+                for (int i = 0; i < studentCategories.size(); i++)
+                {
+                    if (studentCategories.get(i).equals(category))
+                    {
+                        score = studentScores.get(i);
+                    }
+                }
+
+                writer.write("," + score);
+            }
+        }
+
+        writer.close();
+        System.out.println("Summary written to " + filename);
     }
 }
