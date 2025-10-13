@@ -1,8 +1,9 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class PA2Main
 {
-    public static void main(String[] args) throws FileNotFoundException
+    public static void main(String[] args) throws FileNotFoundException, IOException
     {
         if (args.length == 0)
         {
@@ -22,5 +23,7 @@ public class PA2Main
 
         System.out.println("All files read successfully.");
         manager.writeOutputs("details.csv", "summary.csv");
+
+        System.out.println("Details and summary files written successfully.");
     }
 }
