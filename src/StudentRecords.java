@@ -15,4 +15,25 @@ public class StudentRecords
         this.categories = new ArrayList<>();
     }
 
+    public String getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public ArrayList<Double> getScores()
+    {
+        return scores;
+    }
+
+    public ArrayList<String> getCategories()
+    {
+        return categories;
+    }
+
+
 }
