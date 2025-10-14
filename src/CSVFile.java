@@ -8,7 +8,7 @@ public class CSVFile
     public static void writeDetails(String filename, ArrayList<StudentRecord> students) throws IOException
     {
         FileWriter writer = new FileWriter(filename);
-        writer.write("ID, Name, Category, Score");
+        writer.write("ID, Name, Category, Score\n");
 
         for (StudentRecord s : students)
         {
@@ -17,7 +17,7 @@ public class CSVFile
 
             for (int i = 0; i < categories.size(); i++)
             {
-                writer.write(s.getId() + "," + s.getName() + "," + categories.get(i) + "," + scores.get(i));
+                writer.write(s.getId() + "," + s.getName() + "," + categories.get(i) + "," + scores.get(i) + "\n");
             }
         }
 
@@ -42,7 +42,7 @@ public class CSVFile
 
         ArrayList<String> categories = new ArrayList<>(categoryTable.keySet());
 
-        writer.write("ID, Name, Overall");
+        writer.write("ID, Name, Overall\n");
 
         for (String category : categories)
         {
@@ -51,7 +51,7 @@ public class CSVFile
 
         for (StudentRecord s : students)
         {
-            writer.write(s.getId() + "," + s.getName());
+            writer.write(s.getId() + "," + s.getName() + "\n");
 
             ArrayList<Double> scores = s.getScores();
 
