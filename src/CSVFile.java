@@ -5,12 +5,12 @@ import java.util.Hashtable;
 
 public class CSVFile 
 {
-    public static void writeDetails(String filename, ArrayList<StudentRecord> students) throws IOException
+    public static void writeDetails(String filename, ArrayList<StudentRecords> students) throws IOException
     {
         FileWriter writer = new FileWriter(filename);
         writer.write("ID, Name, Category, Score\n");
 
-        for (StudentRecord s : students)
+        for (StudentRecords s : students)
         {
             ArrayList<String> categories = s.getCategories();
             ArrayList<Double> scores = s.getScores();
@@ -26,13 +26,13 @@ public class CSVFile
         System.out.println("Details written to " + filename);
     }
 
-    public static void writeSummary(String filename, ArrayList<StudentRecord> students) throws IOException
+    public static void writeSummary(String filename, ArrayList<StudentRecords> students) throws IOException
     {
         FileWriter writer = new FileWriter(filename);
 
         Hashtable<String, Boolean> categoryTable = new Hashtable<>();
 
-        for (StudentRecord s : students)
+        for (StudentRecords s : students)
         {
             for (String category : s.getCategories())
             {
@@ -49,7 +49,9 @@ public class CSVFile
             writer.write("," + category);
         }
 
-        for (StudentRecord s : students)
+        writer.write("\n");
+
+        for (StudentRecords s : students)
         {
             writer.write(s.getId() + "," + s.getName() + "\n");
 
@@ -82,6 +84,8 @@ public class CSVFile
 
                 writer.write("," + score);
             }
+
+            writer.write("\n");
         }
 
         writer.close();
