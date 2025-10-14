@@ -35,5 +35,9 @@ public class StudentRecords
         return categories;
     }
 
-
+    public void addScore(String category, double score)
+    {
+        categories.add(category);
+        scores.add(score);
+    }
 }
