@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class GradebookManager 
 {
-    private ArrayList<StudentRecord> students = new ArrayList<>();
+    private ArrayList<StudentRecords> students = new ArrayList<>();
 
     public void addFile(String filename) throws FileNotFoundException
     {
@@ -31,11 +31,11 @@ public class GradebookManager
             String name = line.next();
             double score = line.nextDouble();
 
-            StudentRecord student = findStudent(id);
+            StudentRecords student = findStudent(id);
 
             if (student == null)
             {
-                student = new StudentRecord(id, name);
+                student = new StudentRecords(id, name);
                 students.add(student);
             }
 
@@ -47,9 +47,9 @@ public class GradebookManager
         System.out.println("Read file: " + filename);
     }
 
-    private StudentRecord findStudent(String id)
+    private StudentRecords findStudent(String id)
     {
-        for (StudentRecord s : students)
+        for (StudentRecords s : students)
         {
             if (s.getId().equals(id))
             {
@@ -66,7 +66,7 @@ public class GradebookManager
         CSVFile.writeSummary(summaryFile, students);
     }
 
-    public ArrayList<StudentRecord> getStudents()
+    public ArrayList<StudentRecords> getStudents()
     {
         return students;
     }
