@@ -15,5 +15,23 @@ public class GradebookReader
             scanner.nextLine();
         }
 
+        String category = "";
+
+        if (filename.toLowerCase().contains("homework"))
+        {
+            category = "Homework";
+        }
+        else if (filename.toLowerCase().contains("quiz"))
+        {
+            category = "Quiz";
+        }
+        else if (filename.toLowerCase().contains("exam"))
+        {
+            category = "Exam";
+        }
+        else 
+        {
+            category = "Other";
+        }
     }
 }
