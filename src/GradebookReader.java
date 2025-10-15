@@ -55,11 +55,11 @@ public class GradebookReader
                         score = Double.parseDouble(scoreVal);
                     }
 
-                    StudentRecord student = table.get(id);
+                    StudentRecords student = table.get(id);
 
                     if (student == null)
                     {
-                        student = new StudentRecord(id, name);
+                        student = new StudentRecords(id, name);
                         table.put(id, student);
                     }
 
