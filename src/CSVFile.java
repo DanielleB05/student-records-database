@@ -8,21 +8,53 @@ public class CSVFile
     public static void writeDetails(String filename, ArrayList<StudentRecords> students) throws IOException
     {
         FileWriter writer = new FileWriter(filename);
-        writer.write("ID,Name,Category,Score\n");
 
-        for (StudentRecords s : students)
+        ArrayList<String> allCategories = new ArrayList<>();
+
+        for (StudentRecords s : students) 
         {
-            ArrayList<String> categories = s.getCategories();
-            ArrayList<Double> scores = s.getScores();
-
-            for (int i = 0; i < categories.size(); i++)
+            for (String cat : s.getCategories()) 
             {
-                writer.write(s.getId() + ",\"" + s.getName() + "\"," + categories.get(i) + "," + scores.get(i) + "\n");
+                if (!allCategories.contains(cat)) 
+                {
+                    allCategories.add(cat);
+                }
             }
         }
 
-        writer.close();
+        allCategories.sort(String::compareTo);
 
+        writer.write("ID,Name");
+        
+        for (String cat : allCategories) 
+        {
+            writer.write("," + cat);
+        }
+
+        writer.write("\n");
+
+        for (StudentRecords s : students) 
+        {
+            writer.write(s.getId() + ",\"" + s.getName() + "\"");
+
+            for (String cat : allCategories) 
+            {
+                int index = s.getCategories().indexOf(cat);
+                
+                if (index >= 0) 
+                {
+                    writer.write("," + s.getScores().get(index));
+                } 
+                else   
+                {
+                    writer.write(",");
+                }
+            }
+
+            writer.write("\n");
+        }
+
+        writer.close();
         System.out.println("Details written to " + filename);
     }
 
