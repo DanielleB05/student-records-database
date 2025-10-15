@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -83,9 +84,10 @@ public class GradebookManager
         return null;
     }
 
-    public void writeOutputs(String detailsFile, String summaryFile)
+    public void writeOutputs(String detailsFile, String summaryFile) throws IOException 
     {
-        System.out.println("Would write outputs to: " + detailsFile + ", " + summaryFile);
+        CSVFile.writeDetails(detailsFile, students);
+        CSVFile.writeSummary(summaryFile, students);
     }
 
     public ArrayList<StudentRecords> getStudents()
