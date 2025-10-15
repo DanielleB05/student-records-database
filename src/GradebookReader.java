@@ -40,7 +40,7 @@ public class GradebookReader
         {
             String line = scanner.nextLine().trim();
 
-            if (line.length() > 0)
+            if (!line.isEmpty())
             {
                 String[] parts = parseCSVLine(line);
 
@@ -48,14 +48,6 @@ public class GradebookReader
                 {
                     String id = parts[0].trim();
                     String name = parts[1].trim().replaceAll("^\"|\"$", "");
-                    String scoreVal = parts[2].trim();
-
-                    double score = 0;
-
-                    if (isNumeric(scoreVal))
-                    {
-                        score = Double.parseDouble(scoreVal);
-                    }
 
                     StudentRecords student = table.get(id);
 
@@ -65,7 +57,17 @@ public class GradebookReader
                         table.put(id, student);
                     }
 
-                    student.addScore(category, score);
+                    for (int i = 2; i < parts.length; i++)
+                    {
+                        String scoreVal = parts[i].trim();
+
+                        if (!scoreVal.isEmpty() && isNumeric(scoreVal))
+                        {
+                            double score = Double.parseDouble(scoreVal);
+                            String colCategory = category + (i - 1);
+                            student.addScore(colCategory, score);
+                        }
+                    }
                 }
             }
         }
