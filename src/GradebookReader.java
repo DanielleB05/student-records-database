@@ -17,7 +17,24 @@ public class GradebookReader
         }
 
         String baseName = new File(filename).getName().replace(".csv", "");
-        String category = baseName;
+        String category = "";
+
+        if (baseName.toLowerCase().contains("homework"))
+        {
+            category = "HW";
+        }
+        else if (baseName.toLowerCase().contains("quiz")) 
+        {
+            category = "Q";
+        }
+        else if (baseName.toLowerCase().contains("exam")) 
+        {
+            category = "E";
+        }
+        else 
+        {
+            category = "Other";
+        }
 
         while (scanner.hasNextLine())
         {
