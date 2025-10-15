@@ -41,6 +41,7 @@ public class CSVFile
         }
 
         ArrayList<String> categories = new ArrayList<>(categoryTable.keySet());
+        categories.sort(String::compareTo);
 
         writer.write("ID,Name,Overall");
 
@@ -53,7 +54,7 @@ public class CSVFile
 
         for (StudentRecords s : students)
         {
-            writer.write(s.getId() + "," + s.getName());
+            writer.write(s.getId() + ",\"" + s.getName() + "\"");
 
             ArrayList<Double> scores = s.getScores();
 
