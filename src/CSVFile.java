@@ -31,10 +31,17 @@ public class CSVFile
                 return Character.compare(typeA, typeB);
             }
 
-            int numA = Integer.parseInt(a.substring(2));
-            int numB = Integer.parseInt(b.substring(2));
+            try
+            {
+                int numA = Integer.parseInt(a.substring(2));
+                int numB = Integer.parseInt(b.substring(2));
 
-            return Integer.compare(numA, numB);
+                return Integer.compare(numA, numB);
+            }
+            catch (NumberFormatException e)
+            {
+                return a.compareTo(b);
+            }
         });
 
         writer.write("ID,Name");
@@ -97,10 +104,17 @@ public class CSVFile
                 return Character.compare(typeA, typeB);
             }
 
-            int numA = Integer.parseInt(a.substring(2));
-            int numB = Integer.parseInt(b.substring(2));
+            try
+            {
+                int numA = Integer.parseInt(a.substring(2));
+                int numB = Integer.parseInt(b.substring(2));
 
-            return Integer.compare(numA, numB);
+                return Integer.compare(numA, numB);
+            }
+            catch (NumberFormatException e)
+            {
+                return a.compareTo(b);
+            }
         });
 
         writer.write("ID,Name,Overall");
