@@ -1,7 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class CSVFile 
 {
@@ -22,10 +21,24 @@ public class CSVFile
             }
         }
 
-        allCategories.sort(String::compareTo);
+        allCategories.sort((a, b) -> 
+        {
+            char typeA = a.charAt(0); 
+            char typeB = b.charAt(0);
+            
+            if (typeA != typeB) 
+            {
+                return Character.compare(typeA, typeB);
+            }
+
+            int numA = Integer.parseInt(a.substring(2));
+            int numB = Integer.parseInt(b.substring(2));
+
+            return Integer.compare(numA, numB);
+        });
 
         writer.write("ID,Name");
-        
+
         for (String cat : allCategories) 
         {
             writer.write("," + cat);
@@ -40,12 +53,11 @@ public class CSVFile
             for (String cat : allCategories) 
             {
                 int index = s.getCategories().indexOf(cat);
-                
-                if (index >= 0) 
-                {
+
+                if (index >= 0) {
                     writer.write("," + s.getScores().get(index));
                 } 
-                else   
+                else 
                 {
                     writer.write(",");
                 }
@@ -62,18 +74,34 @@ public class CSVFile
     {
         FileWriter writer = new FileWriter(filename);
 
-        Hashtable<String, Boolean> categoryTable = new Hashtable<>();
+        ArrayList<String> categories = new ArrayList<>();
 
         for (StudentRecords s : students)
         {
-            for (String category : s.getCategories())
+            for (String cat : s.getCategories())
             {
-                categoryTable.put(category, true);
+                if (!categories.contains(cat))
+                {
+                    categories.add(cat);
+                }
             }
         }
 
-        ArrayList<String> categories = new ArrayList<>(categoryTable.keySet());
-        categories.sort(String::compareTo);
+        categories.sort((a, b) -> 
+        {
+            char typeA = a.charAt(0); 
+            char typeB = b.charAt(0);
+
+            if (typeA != typeB) 
+            {
+                return Character.compare(typeA, typeB);
+            }
+
+            int numA = Integer.parseInt(a.substring(2));
+            int numB = Integer.parseInt(b.substring(2));
+
+            return Integer.compare(numA, numB);
+        });
 
         writer.write("ID,Name,Overall");
 
@@ -88,20 +116,18 @@ public class CSVFile
         {
             writer.write(s.getId() + ",\"" + s.getName() + "\"");
 
-            ArrayList<Double> scores = s.getScores();
+            ArrayList<String> studentCategories = s.getCategories();
+            ArrayList<Double> studentScores = s.getScores();
 
             double sum = 0;
 
-            for (double score : scores)
+            for (double score : studentScores)
             {
                 sum += score;
             }
 
-            double overall = scores.isEmpty() ? 0 : sum / scores.size();
+            double overall = studentScores.isEmpty() ? 0 : sum / studentScores.size();
             writer.write("," + overall);
-
-            ArrayList<String> studentCategories = s.getCategories();
-            ArrayList<Double> studentScores = s.getScores();
 
             for (String category : categories)
             {
@@ -111,7 +137,8 @@ public class CSVFile
                 {
                     if (studentCategories.get(i).equals(category))
                     {
-                        score = studentScores.get(i);
+                            score = studentScores.get(i);
+                        break;
                     }
                 }
 
