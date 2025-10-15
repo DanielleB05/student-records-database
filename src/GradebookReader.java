@@ -33,5 +33,39 @@ public class GradebookReader
         {
             category = "Other";
         }
+
+        while (scanner.hasNextLine())
+        {
+            String line = scanner.nextLine().trim();
+
+            if (line.length() > 0)
+            {
+                String[] parts = line.split(",");
+
+                if (parts.length >= 3)
+                {
+                    String id = parts[0];
+                    String name = parts[1];
+                    String scoreVal = parts[2];
+
+                    double score = 0;
+
+                    if (isNumeric(scoreVal))
+                    {
+                        score = Double.parseDouble(scoreVal);
+                    }
+
+                    StudentRecord student = table.get(id);
+
+                    if (student == null)
+                    {
+                        student = new StudentRecord(id, name);
+                        table.put(id, student);
+                    }
+
+                    student.addScore(category, score);
+                }
+            }
+        }
     }
 }
