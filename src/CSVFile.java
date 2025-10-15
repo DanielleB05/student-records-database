@@ -8,7 +8,7 @@ public class CSVFile
     public static void writeDetails(String filename, ArrayList<StudentRecords> students) throws IOException
     {
         FileWriter writer = new FileWriter(filename);
-        writer.write("ID, Name, Category, Score\n");
+        writer.write("ID,Name,Category,Score\n");
 
         for (StudentRecords s : students)
         {
