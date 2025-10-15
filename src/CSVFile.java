@@ -42,7 +42,7 @@ public class CSVFile
 
         ArrayList<String> categories = new ArrayList<>(categoryTable.keySet());
 
-        writer.write("ID, Name, Overall\n");
+        writer.write("ID,Name,Overall");
 
         for (String category : categories)
         {
