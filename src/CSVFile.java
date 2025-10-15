@@ -17,7 +17,7 @@ public class CSVFile
 
             for (int i = 0; i < categories.size(); i++)
             {
-                writer.write(s.getId() + "," + s.getName() + "," + categories.get(i) + "," + scores.get(i) + "\n");
+                writer.write(s.getId() + ",\"" + s.getName() + "\"," + categories.get(i) + "," + scores.get(i) + "\n");
             }
         }
 
@@ -53,7 +53,7 @@ public class CSVFile
 
         for (StudentRecords s : students)
         {
-            writer.write(s.getId() + "," + s.getName() + "\n");
+            writer.write(s.getId() + "," + s.getName());
 
             ArrayList<Double> scores = s.getScores();
 
