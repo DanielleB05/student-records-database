@@ -71,4 +71,24 @@ public class GradebookReader
         scanner.close();
         System.out.println("read files: " + filename);
     }
+
+    private static boolean isNumeric(String val)
+    {
+        if (val == null || val.isEmpty())
+        {
+            return false;
+        }
+
+        for (int i = 0; i < val.length(); i++)
+        {
+            char c = val.charAt(i);
+
+            if ((c < '0' || c > '9') && c != '.')
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
