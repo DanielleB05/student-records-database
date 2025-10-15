@@ -40,13 +40,13 @@ public class GradebookReader
 
             if (line.length() > 0)
             {
-                String[] parts = line.split(",");
+                String[] parts = parseCSVLine(line);
 
                 if (parts.length >= 3)
                 {
-                    String id = parts[0];
-                    String name = parts[1];
-                    String scoreVal = parts[2];
+                    String id = parts[0].trim();
+                    String name = parts[1].trim().replaceAll("^\"|\"$", "");
+                    String scoreVal = parts[2].trim();
 
                     double score = 0;
 
@@ -90,5 +90,36 @@ public class GradebookReader
         }
 
         return true;
+    }
+
+    public static String[] parseCSVLine(String line) 
+    {
+        ArrayList<String> parts = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        boolean inQuotes = false;
+
+        for (int i = 0; i < line.length(); i++) 
+        {
+            char c = line.charAt(i);
+
+            if (c == '"') 
+            {
+                inQuotes = !inQuotes; // toggle quote status
+            } 
+            else if (c == ',' && !inQuotes) 
+            {
+                parts.add(current.toString().trim());
+                current.setLength(0);
+            } 
+            else 
+            {
+                current.append(c);
+            }
+        }
+
+        // add last field
+        parts.add(current.toString().trim());
+
+        return parts.toArray(new String[0]);
     }
 }
