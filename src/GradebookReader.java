@@ -67,5 +67,8 @@ public class GradebookReader
                 }
             }
         }
+
+        scanner.close();
+        System.out.println("read files: " + filename);
     }
 }
