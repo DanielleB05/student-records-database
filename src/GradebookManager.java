@@ -17,7 +17,25 @@ public class GradebookManager
             sc.nextLine();
         
 
-            String category = filename.contains("_") ? filename.split("_")[0] : filename;
+            String baseName = new File(filename).getName().replace(".csv", "").toLowerCase();
+            String category = "";
+
+            if (baseName.contains("homework"))
+            {
+                category = "HW";
+            }
+            else if (baseName.contains("quiz"))
+            {
+                category = "Q";
+            }
+            else if (baseName.contains("exam"))
+            {
+                category = "E";
+            }
+            else 
+            {
+                category = "Other";
+            }
 
             while (sc.hasNextLine()) 
             {
@@ -56,7 +74,8 @@ public class GradebookManager
                         try 
                         {
                             double score = Double.parseDouble(scoreStr);
-                            student.addScore(category, score);
+                            String colCategory = category + (i - 2);
+                            student.addScore(colCategory, score);
                         } 
                         catch (NumberFormatException e) 
                         {
