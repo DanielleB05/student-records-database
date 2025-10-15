@@ -27,7 +27,7 @@ public class GradebookManager
                     continue;
                 }
 
-                String[] parts = line.split(",");
+                String[] parts = GradebookReader.parseCSVLine(line);
 
                 if (parts.length < 2) 
                 {
@@ -69,7 +69,7 @@ public class GradebookManager
             System.out.println("Read file: " + filename);
         }
     }
-    
+
     private StudentRecords findStudent(String id)
     {
         for (StudentRecords s : students)
