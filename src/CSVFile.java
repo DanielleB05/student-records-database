@@ -65,11 +65,35 @@ public class CSVFile
     {
         FileWriter writer = new FileWriter(filename);
 
-        writer.write("ID,Name,Overall");
+        writer.write("ID, Name, Final Grade, Homework, Quizzes, Exams, Overall");
 
-        for (String cat : EXPECTED_CATEGORIES) 
+        for (StudentRecords s : students)
         {
-            writer.write("," + cat);
+            ArrayList<String> categories = s.getCategories();
+            ArrayList<Double> scores = s.getScores();
+
+            double homeworkTotal = 0;
+            double quizzesTotal = 0;
+            double examsTotal = 0;
+
+            for (int i = 0; i < categories.size(); i++)
+            {
+                String cat = categories.get(i);
+                double score = scores.get(i);
+
+                if (cat.startsWith("HW"))
+                {
+                    homeworkTotal += score;
+                }
+                else if (cat.startsWith("Q"))
+                {
+                    quizzesTotal += score;
+                }
+                else if (cat.startsWith("E"))
+                {
+                    examsTotal += score;
+                }
+            }
         }
 
         writer.write("\n");
