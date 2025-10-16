@@ -2,6 +2,12 @@ import java.util.ArrayList;
 
 public class StudentRecords 
 {
+    private static final String[] EXPECTED_CATEGORIES = {
+        "HW1", "HW2", "HW3", "HW4", "HW5", "HW6", "HW7",
+        "Q1", "Q2", "Q3", "Q4",
+        "E1", "E2", "E3"
+    };
+
     private String id;
     private String name;
     private ArrayList<Double> scores;
@@ -37,7 +43,15 @@ public class StudentRecords
 
     public void addScore(String category, double score)
     {
-        categories.add(category);
-        scores.add(score);
+        for (String expected : EXPECTED_CATEGORIES)
+        {
+            if (expected.equals(category))
+            {
+                categories.add(category);
+                scores.add(score);
+
+                return;
+            }
+        }
     }
 }
