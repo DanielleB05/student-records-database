@@ -35,7 +35,7 @@ public class CSVFile
 
         for (double max : MAX_POINTS) 
         {
-            writer.write("," + max);
+            writer.write(", " + max);
         }
 
         writer.write("\n");
@@ -65,7 +65,8 @@ public class CSVFile
     {
         FileWriter writer = new FileWriter(filename);
 
-        writer.write("ID, Name, Final Grade, Homework, Quizzes, Exams, Overall\n");
+        writer.write("ID, Name, Final Grade, Homework, Quizzes, Exams\n");
+        writer.write(", Overall, 700.0, 400.0, 400.0\n");
 
         for (StudentRecords s : students)
         {
@@ -107,7 +108,7 @@ public class CSVFile
 
             finalGrade *= 100;
 
-            writer.write(" " + s.getId() + ",\"" + s.getName() + "\", ");
+            writer.write(s.getId() + ",\"" + s.getName() + "\", ");
             
             writer.write(homeworkTotal + ",");
             writer.write(quizzesTotal + ",");
