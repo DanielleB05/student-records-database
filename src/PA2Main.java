@@ -11,7 +11,8 @@ public class PA2Main
 {
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
-        System.out.println("PA2Main start.");
+        System.out.println("PA2Main start:");
+        System.out.println("------------------------------");
 
         GradebookManager manager = new GradebookManager();
 
@@ -30,9 +31,10 @@ public class PA2Main
             manager.addFile(filename);
         }
 
-        System.out.println("All files read successfully.");
+        System.out.println("------------------------------");
+        System.out.println("All files read successfully.\n");
         manager.writeOutputs("details.csv", "summary.csv");
 
-        System.out.println("Details and summary files written successfully.");
+        System.out.println("\nDetails and summary files written successfully.");
     }
 }
