@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class CSVFile 
 {
-    private static final String[] EXPECTED_CATEGORIES = 
+    public static final String[] EXPECTED_CATEGORIES = 
     {
         "HW1", "HW2", "HW3", "HW4", "HW5", "HW6", "HW7",
         "Q1", "Q2", "Q3", "Q4",
         "E1", "E2", "E3"
     };
 
-    private static final double[] MAX_POINTS = 
+    public static final double[] MAX_POINTS = 
     {
         100, 100, 100, 100, 100, 100, 100,
         100, 100, 100, 100,
@@ -42,7 +42,7 @@ public class CSVFile
 
         for (StudentRecords s : students) 
         {
-            writer.write(s.getId() + "," + s.getName());
+            writer.write(s.getId() + ",\"" + s.getName() + "\"");
 
             ArrayList<String> studentCategories = s.getCategories();
             ArrayList<Double> studentScores = s.getScores();
