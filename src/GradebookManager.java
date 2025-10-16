@@ -8,6 +8,24 @@ public class GradebookManager
 {
     private ArrayList<StudentRecords> students = new ArrayList<>();
 
+    private StudentRecords findStudent(String id) 
+    {
+        for (StudentRecords s : students) 
+        {
+            if (s.getId().equals(id)) 
+            {
+                return s;
+            }
+        }
+        return null;
+    }   
+
+    public void writeOutputs(String detailsFile, String summaryFile) throws IOException 
+    {
+        CSVFile.writeDetails(detailsFile, students);
+        CSVFile.writeSummary(summaryFile, students);
+    }
+
     public void addFile(String filename) throws FileNotFoundException 
     {
         Scanner sc = new Scanner(new File(filename));
@@ -80,6 +98,28 @@ public class GradebookManager
                         {
                             double score = Double.parseDouble(scoreStr);
                             String colCategory = category + (i - 1);
+
+                            int index = -1;
+
+                            for (int j = 0; j < CSVFile.EXPECTED_CATEGORIES.length; j++) 
+                            {
+                                if (CSVFile.EXPECTED_CATEGORIES[j].equals(colCategory)) 
+                                {
+                                    index = j;
+                                    break;
+                                }
+                            }
+
+                            if (index >= 0) 
+                            {
+                                double max = CSVFile.MAX_POINTS[index];
+
+                                if (score > max) 
+                                {
+                                    score = max;
+                                }
+                            }
+
                             student.addScore(colCategory, score);
                         } 
                         catch (NumberFormatException e) 
@@ -93,29 +133,5 @@ public class GradebookManager
             sc.close();
             System.out.println("Read file: " + filename);
         }
-    }
-
-    private StudentRecords findStudent(String id)
-    {
-        for (StudentRecords s : students)
-        {
-            if (s.getId().equals(id))
-            {
-                return s;
-            }
-        }
-
-        return null;
-    }
-
-    public void writeOutputs(String detailsFile, String summaryFile) throws IOException 
-    {
-        CSVFile.writeDetails(detailsFile, students);
-        CSVFile.writeSummary(summaryFile, students);
-    }
-
-    public ArrayList<StudentRecords> getStudents()
-    {
-        return students;
     }
 }
