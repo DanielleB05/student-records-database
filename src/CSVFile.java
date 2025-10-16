@@ -22,16 +22,16 @@ public class CSVFile
     {
         FileWriter writer = new FileWriter(filename);
 
-        writer.write("ID,Name");
+        writer.write("ID, Name");
 
         for (String cat : EXPECTED_CATEGORIES) 
         {
-            writer.write("," + cat);
+            writer.write(", " + cat);
         }
 
         writer.write("\n");
 
-        writer.write(",Overall");
+        writer.write(", Overall");
 
         for (double max : MAX_POINTS) 
         {
@@ -42,7 +42,7 @@ public class CSVFile
 
         for (StudentRecords s : students) 
         {
-            writer.write(s.getId() + ",\"" + s.getName() + "\"");
+            writer.write(s.getId() + ", \"" + s.getName() + "\"");
 
             ArrayList<String> studentCategories = s.getCategories();
             ArrayList<Double> studentScores = s.getScores();
@@ -51,7 +51,7 @@ public class CSVFile
             {
                 int index = studentCategories.indexOf(cat);
                 double score = (index >= 0) ? studentScores.get(index) : 0;
-                writer.write("," + score);
+                writer.write(", " + score);
             }
 
             writer.write("\n");
