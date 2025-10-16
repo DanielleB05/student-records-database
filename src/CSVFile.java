@@ -47,7 +47,7 @@ public class CSVFile
 
         for (StudentRecords s : students) 
         {
-            writer.write(s.getId() + ", \"" + s.getName() + "\"");
+            writer.write(s.getId() + ",\"" + s.getName() + "\"");
 
             ArrayList<String> studentCategories = s.getCategories();
             ArrayList<Double> studentScores = s.getScores();
@@ -120,11 +120,13 @@ public class CSVFile
 
             finalGrade *= 100;
 
+            finalGrade = Math.round(finalGrade * 10000.0) / 10000.0;
+
             writer.write(s.getId() + ",\"" + s.getName() + "\", ");
             
-            writer.write(finalGrade + ",");
-            writer.write(homeworkTotal + ",");
-            writer.write(quizzesTotal + ",");
+            writer.write(finalGrade + ", ");
+            writer.write(homeworkTotal + ", ");
+            writer.write(quizzesTotal + ", ");
             writer.write(examsTotal + "\n");
         }
 
