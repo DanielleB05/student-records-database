@@ -65,7 +65,7 @@ public class CSVFile
     {
         FileWriter writer = new FileWriter(filename);
 
-        writer.write("ID, Name, Final Grade, Homework, Quizzes, Exams, Overall");
+        writer.write("ID, Name, Final Grade, Homework, Quizzes, Exams, Overall\n");
 
         for (StudentRecords s : students)
         {
@@ -94,46 +94,25 @@ public class CSVFile
                     examsTotal += score;
                 }
             }
-        }
 
-        writer.write("\n");
+            double[] totals = {homeworkTotal / 700.0, quizzesTotal / 400.0, examsTotal / 400.0};
+            double[] weights = {0.35, 0.35, 0.30};
 
-        for (StudentRecords s : students) 
-        {
-            writer.write(s.getId() + ",\"" + s.getName() + "\"");
+            double finalGrade = 0;
 
-            double sum = 0;
-            int count = 0;
-
-            double[] percentages = new double[EXPECTED_CATEGORIES.length];
-
-            for (int i = 0; i < EXPECTED_CATEGORIES.length; i++) 
+            for (int i = 0; i < totals.length; i++)
             {
-                String cat = EXPECTED_CATEGORIES[i];
-
-                int index = s.getCategories().indexOf(cat);
-                double percent = 0;
-
-                if (index >= 0 && MAX_POINTS[i] != 0) 
-                {
-                    percent = (s.getScores().get(index) / MAX_POINTS[i]) * 100;
-                }
-
-                percentages[i] = percent;
-                sum += percent;
-                count++;
+                finalGrade += totals[i] * weights[i];
             }
 
-            double overall = (count == 0) ? 0 : sum / count;
+            finalGrade *= 100;
 
-            writer.write("," + overall);
-
-            for (double pct : percentages) 
-            {
-                writer.write("," + pct);
-            }
-
-            writer.write("\n");
+            writer.write(" " + s.getId() + ",\"" + s.getName() + "\", ");
+            
+            writer.write(homeworkTotal + ",");
+            writer.write(quizzesTotal + ",");
+            writer.write(examsTotal + ",");
+            writer.write(finalGrade + "\n");
         }
 
         writer.close();
