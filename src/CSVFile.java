@@ -17,6 +17,11 @@ public class CSVFile
         100, 100, 100, 100,
         100, 100, 200
     };
+
+    public static final double[] MAX_POINTS_2 =
+    {
+        700, 400, 400
+    };
     
     public static void writeDetails(String filename, ArrayList<StudentRecords> students) throws IOException 
     {
@@ -66,8 +71,15 @@ public class CSVFile
         FileWriter writer = new FileWriter(filename);
 
         writer.write("ID, Name, Final Grade, Homework, Quizzes, Exams\n");
-        writer.write(", Overall, 700.0, 400.0, 400.0\n");
+        writer.write(", Overall, ");
 
+        for (double max : MAX_POINTS_2) 
+        {
+            writer.write(", " + max);
+        }
+
+        writer.write("\n");
+        
         for (StudentRecords s : students)
         {
             ArrayList<String> categories = s.getCategories();
@@ -110,10 +122,10 @@ public class CSVFile
 
             writer.write(s.getId() + ",\"" + s.getName() + "\", ");
             
+            writer.write(finalGrade + ",");
             writer.write(homeworkTotal + ",");
             writer.write(quizzesTotal + ",");
-            writer.write(examsTotal + ",");
-            writer.write(finalGrade + "\n");
+            writer.write(examsTotal + "\n");
         }
 
         writer.close();
