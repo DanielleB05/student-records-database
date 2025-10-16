@@ -57,6 +57,11 @@ public class GradebookManager
                 String id = parts[0].trim();
                 String name = parts[1].trim();
 
+                if (id.equalsIgnoreCase("OVERALL") || name.equalsIgnoreCase("OVERALL"))
+                {
+                    continue;
+                }
+
                 StudentRecords student = findStudent(id);
 
                 if (student == null) 
@@ -74,7 +79,7 @@ public class GradebookManager
                         try 
                         {
                             double score = Double.parseDouble(scoreStr);
-                            String colCategory = category + (i - 2);
+                            String colCategory = category + (i - 1);
                             student.addScore(colCategory, score);
                         } 
                         catch (NumberFormatException e) 
