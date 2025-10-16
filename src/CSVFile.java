@@ -18,7 +18,7 @@ public class CSVFile
         100, 100, 200
     };
     
-    public static void writeDetails(String filename, ArrayList<StudentRecords> students) throws IOException
+    public static void writeDetails(String filename, ArrayList<StudentRecords> students) throws IOException 
     {
         FileWriter writer = new FileWriter(filename);
 
@@ -31,23 +31,26 @@ public class CSVFile
 
         writer.write("\n");
 
+        writer.write(",Overall");
+
+        for (double max : MAX_POINTS) 
+        {
+            writer.write("," + max);
+        }
+
+        writer.write("\n");
+
         for (StudentRecords s : students) 
         {
-            writer.write(s.getId() + ",\"" + s.getName() + "\"");
+            writer.write(s.getId() + "," + s.getName());
 
             ArrayList<String> studentCategories = s.getCategories();
             ArrayList<Double> studentScores = s.getScores();
 
             for (String cat : EXPECTED_CATEGORIES) 
             {
-                double score = 0;
                 int index = studentCategories.indexOf(cat);
-
-                if (index >= 0) 
-                {
-                    score = studentScores.get(index);
-                }
-
+                double score = (index >= 0) ? studentScores.get(index) : 0;
                 writer.write("," + score);
             }
 
@@ -57,7 +60,6 @@ public class CSVFile
         writer.close();
         System.out.println("Details written to " + filename);
     }
-
 
     public static void writeSummary(String filename, ArrayList<StudentRecords> students) throws IOException
     {
@@ -114,4 +116,3 @@ public class CSVFile
         System.out.println("Summary written to " + filename);
     }
 }
-
