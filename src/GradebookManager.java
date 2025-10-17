@@ -15,7 +15,7 @@ public class GradebookManager
     /**
      * Constructs a GradebookManager object.
      */
-    private GradebookManager()
+    public GradebookManager()
     {
         // Fixes JavaDoc warning
     }
