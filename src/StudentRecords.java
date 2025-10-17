@@ -24,22 +24,22 @@ public class StudentRecords
     /**
      * The student's ID
      */
-    private String id;
+    private final String id;
 
     /**
      * The student's full name;
      */
-    private String name;
+    private final String name;
 
     /**
      * List of scores corresponding to categories.
      */
-    private ArrayList<Double> scores;
+    private final ArrayList<Double> scores;
 
     /**
      * List of categories corresponding to each score.
      */
-    private ArrayList<String> categories;
+    private final ArrayList<String> categories;
 
     /**
      * Constructs a StudentRecords object with the given ID and name.
