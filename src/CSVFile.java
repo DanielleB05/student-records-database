@@ -11,6 +11,15 @@ import java.util.ArrayList;
  */
 public class CSVFile 
 {
+    /**
+     * Constructs a CSVFile object.
+     * 
+     */
+    private CSVFile()
+    {
+        // Fixes JavaDoc warning.
+    }
+
     // List of all categories in detailed grade report
     /**
      * List of all categories in the detailed grade report.
