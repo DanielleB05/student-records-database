@@ -4,8 +4,23 @@ import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * The GradebookReader class handles reading student grade data
+ * from a CSV file and storing it in a hash table of StudentRecords.
+ * It also provides methods for parsing CSV lines and validating 
+ * numeric score values.
+ * @author Danielle Boisseranc
+ */
 public class GradebookReader 
 {
+    /**
+     * Reads a CSV file and adds student scores to the given table.
+     * readFile determines category from the filename and processes
+     * each line accordingly.
+     * @param filename The CSV file to read.
+     * @param table A hashtable mapping student IDs to StudentRecords.
+     * @throws FileNotFoundException If the file cannot be found.
+     */
     public static void readFile(String filename, Hashtable<String, StudentRecords> table) throws FileNotFoundException
     {
         // Create a file object and scanner to read from given filename
@@ -89,6 +104,11 @@ public class GradebookReader
         System.out.println("read files: " + filename);
     }
 
+    /**
+     * Checks if a given string represents a valid numeric value.
+     * @param val The string to check.
+     * @return True if the string is numeric, otherwise false.
+     */
     private static boolean isNumeric(String val)
     {
         // Check for empty or null strings
@@ -111,6 +131,12 @@ public class GradebookReader
         return true;
     }
 
+    /**
+     * Parses a single line of a CSV file into fields.
+     * Handles commas inside quotes.
+     * @param line The CSV line to parse.
+     * @return An array of strings representing each field.
+     */
     public static String[] parseCSVLine(String line) 
     {
         ArrayList<String> parts = new ArrayList<>();
