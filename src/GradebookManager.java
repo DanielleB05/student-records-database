@@ -12,6 +12,14 @@ import java.util.Scanner;
  */
 public class GradebookManager 
 {
+    /**
+     * Constructs a GradebookManager object.
+     */
+    private GradebookManager()
+    {
+        // Fixes JavaDoc warning
+    }
+
     // Array list to store all student records from the CSV files
     /**
      * List to store all student records from the CSV files.
