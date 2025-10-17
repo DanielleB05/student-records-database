@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class GradebookManager 
 {
     /**
-     * Constructs a GradebookManager object.
+     * Constructs a GradebookManager
      */
     public GradebookManager()
     {
@@ -24,7 +24,7 @@ public class GradebookManager
     /**
      * List to store all student records from the CSV files.
      */
-    private final ArrayList<StudentRecords> students = new ArrayList<>();
+    private ArrayList<StudentRecords> students = new ArrayList<>();
 
     /**
      * Searches for a student by ID in the given list.
@@ -70,116 +70,115 @@ public class GradebookManager
     public void addFile(String filename) throws FileNotFoundException 
     {
         // Create scanner to read from file
-        try (Scanner sc = new Scanner(new File(filename)))
+        Scanner sc = new Scanner(new File(filename));
+
+        // If the file is empty, stop reading
+        if (!sc.hasNextLine()) 
         {
-            // If the file is empty, stop reading
-            if (!sc.hasNextLine()) 
+            sc.close();
+            return;
+        }
+
+        // Read the header line of this CSV
+        String headerLine = sc.nextLine();
+        String[] headers = GradebookReader.parseCSVLine(headerLine);
+
+        // Read remaining lines of the file
+        while (sc.hasNextLine()) 
+        {
+            String line = sc.nextLine().trim();
+
+            // Skip any empty lines
+            if (line.isEmpty()) 
             {
-                sc.close();
-                return;
+                continue;
             }
 
-            // Read the header line of this CSV
-            String headerLine = sc.nextLine();
-            String[] headers = GradebookReader.parseCSVLine(headerLine);
+            // Split current line into ID, name, and score categories
+            String[] parts = GradebookReader.parseCSVLine(line);
 
-            // Read remaining lines of the file
-            while (sc.hasNextLine()) 
+            // Check if line doesn't have specific categories
+            if (parts.length < 2) 
             {
-                String line = sc.nextLine().trim();
+                System.out.println("Skipping malformed line: " + line);
+                continue;
+            }
 
-                // Skip any empty lines
-                if (line.isEmpty()) 
+            String id = parts[0].trim();
+            String name = parts[1].trim();
+
+            // If statement to remove extra "overall" line
+            if (id.equalsIgnoreCase("OVERALL") || name.equalsIgnoreCase("OVERALL")) 
+            {
+                continue;
+            }
+
+            // Find or create the student
+            StudentRecords student = findStudent(id);
+
+            if (student == null) 
+            {
+                student = new StudentRecords(id, name);
+                students.add(student);
+            }
+
+            // Loop through each column in the CSV file for current student
+            for (int i = 2; i < parts.length; i++) 
+            {
+                String scoreStr = parts[i].trim();
+
+                // Skip blank score lines
+                if (!scoreStr.isEmpty()) 
                 {
-                    continue;
-                }
-
-                // Split current line into ID, name, and score categories
-                String[] parts = GradebookReader.parseCSVLine(line);
-
-                // Check if line doesn't have specific categories
-                if (parts.length < 2) 
-                {
-                    System.out.println("Skipping malformed line: " + line);
-                    continue;
-                }
-
-                String id = parts[0].trim();
-                String name = parts[1].trim();
-
-                // If statement to remove extra "overall" line
-                if (id.equalsIgnoreCase("OVERALL") || name.equalsIgnoreCase("OVERALL")) 
-                {
-                    continue;
-                }
-
-                // Find or create the student
-                StudentRecords student = findStudent(id);
-
-                if (student == null) 
-                {
-                    student = new StudentRecords(id, name);
-                    students.add(student);
-                }
-
-                // Loop through each column in the CSV file for current student
-                for (int i = 2; i < parts.length; i++) 
-                {
-                    String scoreStr = parts[i].trim();
-
-                    // Skip blank score lines
-                    if (!scoreStr.isEmpty()) 
+                    try 
                     {
-                        try 
+                        // Convert score from text to double
+                        double score = Double.parseDouble(scoreStr);
+
+                        // Get category name from header
+                        String colCategory = headers[i];
+
+                        // Only add score if it matches one of the EXPECTED_CATEGORIES
+                        int index = -1;
+
+                        for (int j = 0; j < CSVFile.EXPECTED_CATEGORIES.length; j++) 
                         {
-                            // Convert score from text to double
-                            double score = Double.parseDouble(scoreStr);
-
-                            // Get category name from header
-                            String colCategory = headers[i];
-
-                            // Only add score if it matches one of the EXPECTED_CATEGORIES
-                            int index = -1;
-
-                            for (int j = 0; j < CSVFile.EXPECTED_CATEGORIES.length; j++) 
+                            if (CSVFile.EXPECTED_CATEGORIES[j].equals(colCategory)) 
                             {
-                                if (CSVFile.EXPECTED_CATEGORIES[j].equals(colCategory)) 
-                                {
-                                    index = j;
-                                    break;
-                                }
+                                index = j;
+                                break;
                             }
-
-                            // Only record the score if the category is valid
-                            if (index >= 0) 
-                            {
-                                // Get the maximum possible points for the category
-                                double max = CSVFile.MAX_POINTS[index];
-
-                                // Set score to not exceed maximum amount
-                                if (score > max) 
-                                {
-                                    score = max;
-                                }
-
-                                // Add the score to the current student's record
-                                student.addScore(colCategory, score);
-                            }
-
-                        } 
-                        catch (NumberFormatException e) 
-                        {
-                            // Check for invalid score entries
-                            System.out.println("Skipping invalid score: " + scoreStr + " for student " + id);
                         }
+
+                        // Only record the score if the category is valid
+                        if (index >= 0) 
+                        {
+                            // Get the maximum possible points for the category
+                            double max = CSVFile.MAX_POINTS[index];
+
+                            // Set score to not exceed maximum amount
+                            if (score > max) 
+                            {
+                                score = max;
+                            }
+
+                            // Add the score to the current student's record
+                            student.addScore(colCategory, score);
+                        }
+
+                    } 
+                    catch (NumberFormatException e) 
+                    {
+                        // Check for invalid score entries
+                        System.out.println("Skipping invalid score: " + scoreStr + " for student " + id);
                     }
                 }
             }
-
-            // Close file scanner
-            sc.close();
-
-            System.out.println("Read file: " + filename);
         }
+
+        // Close file scanner
+        sc.close();
+
+        System.out.println("Read file: " + filename);
     }
 }
