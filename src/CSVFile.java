@@ -17,7 +17,7 @@ public class CSVFile
      */
     private CSVFile()
     {
-        // Fixes JavaDoc warning.
+        // Fixes JavaDoc warning
     }
 
     // List of all categories in detailed grade report
