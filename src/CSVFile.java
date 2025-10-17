@@ -2,9 +2,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The CSVFile class handles writing student grade data
+ * to CSV files, incluing detailed and summary reports.
+ * Each report includes header, maximum point values,
+ * and calculated scores.
+ * @author Danielle Boisseranc
+ */
 public class CSVFile 
 {
     // List of all categories in detailed grade report
+    /**
+     * List of all categories in the detailed grade report.
+     */
     public static final String[] EXPECTED_CATEGORIES = 
     {
         "HW1", "HW2", "HW3", "HW4", "HW5", "HW6", "HW7",
@@ -13,6 +23,9 @@ public class CSVFile
     };
 
     // Maximum possible points for detail.csv categories
+    /**
+     * Maximum possible point values for each category in the details.csv file.
+     */
     public static final double[] MAX_POINTS = 
     {
         100, 100, 100, 100, 100, 100, 100,
@@ -21,11 +34,20 @@ public class CSVFile
     };
 
     // Maximum possible points for summary.csv categories
+    /**
+     * Maximum possible point values for each category in the summary.csv file.
+     */
     public static final double[] MAX_POINTS_2 =
     {
         700, 400, 400
     };
     
+    /**
+     * Writes the detailed grade report to the details.csv file.
+     * @param filename The name of the output CSV file.
+     * @param students A list of StudentRecords containing student IDs, names, and scores.
+     * @throws IOException If an error occurs while writing the file.
+     */
     public static void writeDetails(String filename, ArrayList<StudentRecords> students) throws IOException 
     {
         FileWriter writer = new FileWriter(filename);
@@ -79,6 +101,12 @@ public class CSVFile
         System.out.println("Details written to " + filename);
     }
 
+    /**
+     * Writes the summary report to the summary.csv file.
+     * @param filename The name of the output CSV file.
+     * @param students A list of StudentRecords containing all scores per student.
+     * @throws IOException If an error occurs while writing the file.
+     */
     public static void writeSummary(String filename, ArrayList<StudentRecords> students) throws IOException
     {
         FileWriter writer = new FileWriter(filename);
