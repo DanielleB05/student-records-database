@@ -4,11 +4,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The GradebookManager class handles reading student grade
+ * data from multiple CSV files. It then stores the data in
+ * StudentRecords and writes output using CSVFile.
+ * @author Danielle Boisseranc
+ */
 public class GradebookManager 
 {
     // Array list to store all student records from the CSV files
+    /**
+     * List to store all student records from the CSV files.
+     */
     private ArrayList<StudentRecords> students = new ArrayList<>();
 
+    /**
+     * Searches for a student by ID in the given list.
+     * @param id The student ID to search for.
+     * @return The StudentRecords object if found, otherwise null.
+     */
     private StudentRecords findStudent(String id) 
     {
         // Searches for student in the list using id
@@ -25,6 +39,13 @@ public class GradebookManager
         return null;
     }   
 
+    /**
+     * Writes both detailed and summary CSV output files
+     * after all student data has been read and processed.
+     * @param detailsFile The filename for the detailed grade report.
+     * @param summaryFile The filename for the summary grade report.
+     * @throws IOException If an error occurs while writing files.
+     */
     public void writeOutputs(String detailsFile, String summaryFile) throws IOException 
     {
         // Write two output files after all student data is processed
@@ -32,6 +53,12 @@ public class GradebookManager
         CSVFile.writeSummary(summaryFile, students);
     }
 
+    /**
+     * Reads a CSV file containing student scores, parses the data,
+     * and adds scores to the given list.
+     * @param filename The CSV file to read.
+     * @throws FileNotFoundException If the file cannot be found.
+     */
     public void addFile(String filename) throws FileNotFoundException 
     {
         // Create scanner to read from file
