@@ -17,6 +17,14 @@ import java.io.IOException;
 public class PA2Main
 {
     /**
+     * Constructs a PA2Main object.
+     */
+    private PA2Main()
+    {
+        // Fixes JavaDoc warning
+    }
+
+    /**
      * The main method to run the gradebook program.
      * It reads input CSV files, processes student scores,
      * and writes output CSV files for detal and summary reports.
