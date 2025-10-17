@@ -24,7 +24,7 @@ public class GradebookManager
     /**
      * List to store all student records from the CSV files.
      */
-    private ArrayList<StudentRecords> students = new ArrayList<>();
+    private final ArrayList<StudentRecords> students = new ArrayList<>();
 
     /**
      * Searches for a student by ID in the given list.
