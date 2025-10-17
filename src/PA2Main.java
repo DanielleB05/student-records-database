@@ -7,8 +7,23 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * The main entry point for the gradebook program.
+ * It reads multiple CSV files containing student grades, 
+ * processes them using GradebookManager, and generates 
+ * detail and summary output files.
+ * @author Danielle Boisseranc
+ */
 public class PA2Main
 {
+    /**
+     * The main method to run the gradebook program.
+     * It reads input CSV files, processes student scores,
+     * and writes output CSV files for detal and summary reports.
+     * @param args Command line arguments
+     * @throws FileNotFoundException If any input file cannot be found.
+     * @throws IOException If an error occurs while writing output files.
+     */
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
         // Print message to indicate program has started
@@ -19,15 +34,8 @@ public class PA2Main
         // files and generating output.
         GradebookManager manager = new GradebookManager();
 
-        // Array of input CSV files containing categories for output
-        String[] files = {
-            "data/homework_1.csv", "data/homework_2.csv",
-            "data/quizzes_1.csv", "data/quizzes_2.csv",
-            "data/exams_1.csv", "data/exams_2.csv"
-        };
-
         // Loop through each file in the array
-        for (String filename : files)
+        for (String filename : args)
         {
             // Read the current file using GradebookManager
             System.out.println("Reading file: " + filename);
