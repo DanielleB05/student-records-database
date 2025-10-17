@@ -14,14 +14,6 @@ import java.util.ArrayList;
 public class GradebookReader 
 {
     /**
-     * Constructs a Gradebookreader object.
-     */
-    private GradebookReader()
-    {
-        // Fixes JavaDoc warning
-    }
-
-    /**
      * Reads a CSV file and adds student scores to the given table.
      * readFile determines category from the filename and processes
      * each line accordingly.
