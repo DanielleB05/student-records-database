@@ -17,14 +17,6 @@ import java.io.IOException;
 public class PA2Main
 {
     /**
-     * Constructs a PA2Main object.
-     */
-    private PA2Main()
-    {
-        // Fixes JavaDoc warning
-    }
-
-    /**
      * The main method to run the gradebook program.
      * It reads input CSV files, processes student scores,
      * and writes output CSV files for detal and summary reports.
@@ -42,6 +34,14 @@ public class PA2Main
         // files and generating output.
         GradebookManager manager = new GradebookManager();
 
+        if (args.length == 0)
+        {
+            args = new String[] {
+                "data/homework_1.csv", "data/homework_2.csv", 
+                "data/quizzes_1.csv", "data/quizzes_2.csv", 
+                "data/exams_1.csv", "data/exams_2.csv"
+            };
+        }
         // Loop through each file in the array
         for (String filename : args)
         {
