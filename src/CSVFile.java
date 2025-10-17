@@ -99,7 +99,9 @@ public class CSVFile
                 int index = studentCategories.indexOf(cat);
 
                 // Assign '0' as score if category not found
-                double score = (index >= 0) ? studentScores.get(index) : 0;
+                Double scoreObj = studentScores.get(index);
+                double score = (scoreObj != null) ? scoreObj : 0;
+
                 writer.write(", " + score);
             }
 
