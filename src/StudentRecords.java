@@ -39,7 +39,7 @@ public class StudentRecords
     /**
      * List of categories corresponding to each score.
      */
-    private final ArrayList<String> categories;
+    private ArrayList<String> categories;
 
     /**
      * Constructs a StudentRecords object with the given ID and name.
