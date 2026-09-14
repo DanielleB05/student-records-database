@@ -15,7 +15,7 @@ public class StudentRecords
      */
     private static final String[] EXPECTED_CATEGORIES = {
         "HW1", "HW2", "HW3", "HW4", "HW5", "HW6", "HW7",
-        "Q1", "Q2", "Q3", "Q4",
+        "Quiz1", "Quiz2", "Quiz3", "Quiz4",
         "E1", "E2", "E3"
     };
 
